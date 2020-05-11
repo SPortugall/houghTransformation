@@ -1,3 +1,4 @@
+from sys import exit
 import numpy as np
 import pygame
 
@@ -31,16 +32,18 @@ def akkumulatePoint(x, y):
                 color = screen.get_at((s, r))
                 # count color towards white
                 if color[0] + 20 <= 255:
-                    color[0] += 5
+                    color[0] += 10
                 pygame.draw.circle(screen, color, (s, r), 1)
 
 
 pygame.init()
+pygame.display.set_caption("Hough-Transformation")
 screen = pygame.display.set_mode((Screen_Width, Screen_Height))
 screen.fill(BLACK)
 
+
 # divider line
-pygame.draw.line(screen, GREEN, (Screen_Width / 2, 0), (Screen_Width / 2, Screen_Height), 10)
+pygame.draw.line(screen, GREEN, (Screen_Width / 2, 0), (Screen_Width / 2, Screen_Height), 5)
 pygame.display.flip()
 pygame.display.update()
 
@@ -60,6 +63,9 @@ while running:
             print(pos)
             pygame.draw.circle(screen, GRAY, pos, 2)
             akkumulatePoint(pos[0], pos[1])
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
 
     pygame.display.flip()
     pygame.display.update()
